@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kutyák Adatai</title>
+    <style>
+        table {
+            border: 1px solid whitesmoke;
+            border-collapse: collapse;
+        }
+        th{
+            border-bottom: 3px solid black;
+            padding: 10px;
+            text-align: center;
+            background-color: aliceblue;
+        }
+        td{
+            padding: 10px;
+            text-align: center;
+        }
+        tr:nth-child(odd) {
+            background-color: rgba(211, 211, 211, 0.806);
+        }
+        tr:nth-child(even) {
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Kutyák Adatai</h2>
+
+<table id="dogsTable" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Név</th>
+            <th>Kor</th>
+            <th>Fajta</th>
+            <th>Gazda Neve</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('data1.json')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('dogsTable').getElementsByTagName('tbody')[0];
+                data.forEach(dog => {
+                    let row = `<tr>
+                                    <td>${dog.id}</td>
+                                    <td>${dog.nev}</td>
+                                    <td>${dog.eletkor}</td>
+                                    <td>${dog.fajta}</td>
+                                    <td>${dog.gazda_neve}</td>
+                               </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Hiba történt az adatok betöltésekor:', error));
+    });
+</script>
+
+</body>
+</html>
